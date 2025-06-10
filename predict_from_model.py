@@ -91,16 +91,9 @@ if __name__ == "__main__":
     for name, count in most_frequent_students_for_seat(w, t, s):
         print(f" - {name}: {count}회")
 
-    seats = ["A1", "A2", "A3", "A4", "A5", "A6",
-             "B1", "B2", "B3", "B4", "B5", "B6",
-             "C1", "C2", "C3", "C4", "C5", "C6",
-             "D1", "D2", "D3", "D4", "D5", "D6",
-             "E1", "E2", "E3", "E4", "E5", "E6",
-             "F1", "F2", "F3", "F4", "F5", "F6"]
-
     predictions = predict_all_seats(w, t)
 
-    print(f"\n자리 예측 배치표 - 요일 {w}, 교시 {t}\n")
+    print(f"\n자리 예측 배치표 - 요일 {w}, 교시 {t}")
     rows = "ABCDEF"
     for row in rows:
         line = ""
