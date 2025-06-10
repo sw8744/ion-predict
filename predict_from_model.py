@@ -71,7 +71,7 @@ def print_predicted_seating_chart(weekday, at_time):
     rows = "ABCDEF"
     cols = range(1, 7)
 
-    print(f"\n🧠 자리 예측 배치표 - 요일 {weekday}, 교시 {at_time}\n")
+    print(f"\n자리 예측 배치표 - 요일 {weekday}, 교시 {at_time}\n")
     for col in cols:
         line = ""
         for row in rows:
