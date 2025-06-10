@@ -54,9 +54,35 @@ def most_frequent_students_for_seat(weekday, at_time, seat):
     counts = matched['uuid'].value_counts()
     return [(uuid_map.get(uid, uid), count) for uid, count in counts.items()]
 
+def predict_all_seats(weekday, at_time):
+    rows = "ABCDEF"
+    cols = range(1, 7)
+    result = {}
+    for row in rows:
+        for col in cols:
+            seat = f"{row}{col}"
+            predicted_uuid = predict_uuid(weekday, at_time, seat)
+            predicted_name = uuid_to_name(predicted_uuid)
+            result[seat] = predicted_name
+    return result
+
+def print_predicted_seating_chart(weekday, at_time):
+    layout = predict_all_seats(weekday, at_time)  # seat → name dict
+    rows = "ABCDEF"
+    cols = range(1, 7)
+
+    print(f"\n🧠 자리 예측 배치표 - 요일 {weekday}, 교시 {at_time}\n")
+    for col in cols:
+        line = ""
+        for row in rows:
+            seat = f"{row}{col}"
+            name = layout.get(seat, "----")
+            line += f"{seat}: {name:<8}  "
+        print(line)
+
 # 사용 예시
 if __name__ == "__main__":
-    w, t, s = 0, 2, "E2" # w -> 0부터 순서대로 월 화 수 목 금
+    w, t, s = 2, 8, "E2" # w -> 0부터 순서대로 월 화 수 목 금
     predicted_uuid = predict_uuid(w, t, s)
     predicted_name = uuid_to_name(predicted_uuid)
     print("예측된 학생:", predicted_name)
@@ -64,3 +90,22 @@ if __name__ == "__main__":
     print("가장 자주 앉은 학생:")
     for name, count in most_frequent_students_for_seat(w, t, s):
         print(f" - {name}: {count}회")
+
+    seats = ["A1", "A2", "A3", "A4", "A5", "A6",
+             "B1", "B2", "B3", "B4", "B5", "B6",
+             "C1", "C2", "C3", "C4", "C5", "C6",
+             "D1", "D2", "D3", "D4", "D5", "D6",
+             "E1", "E2", "E3", "E4", "E5", "E6",
+             "F1", "F2", "F3", "F4", "F5", "F6"]
+
+    predictions = predict_all_seats(w, t)
+
+    print(f"\n자리 예측 배치표 - 요일 {w}, 교시 {t}\n")
+    rows = "ABCDEF"
+    for row in rows:
+        line = ""
+        for col in range(1, 7):
+            seat = f"{row}{col}"
+            name = predictions.get(seat, "----")
+            line += f"{seat}: {name:<8}  "
+        print(line)
